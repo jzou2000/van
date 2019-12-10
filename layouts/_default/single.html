@@ -1,0 +1,10 @@
+{{ define "header" }}
+ {{ partial "header.html" . }}
+{{ end }}
+
+{{ define "main" }}
+<div>
+  {{ partial "nav-side.html" . }}
+  {{ partial "content.html" . }}
+</div>
+{{ end }}

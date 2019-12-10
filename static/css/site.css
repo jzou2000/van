@@ -1,0 +1,233 @@
+
+.right {
+    float: right;
+    padding-right: 26px;
+}
+.header {
+    width: 100%;
+    height: 1cm;
+    position: fixed;
+    top: 0px;
+    background: white;
+}
+.header + div {
+    margin-top: 2cm;
+}
+
+/* hovev pulldown menu */
+.nav-menu-bar {
+    background: steelblue;
+    padding: 4px 0px;
+    margin: 0 0;
+    -position: absolute;
+    width: 100%;
+    -bottom: 0;
+}
+.nav-menu {
+    display: inline-block;
+    color: gold;
+    font-weight: bold;
+    padding: 2px 4px 2px 8px;
+    margin: 0 0;
+}
+.nav-menu:hover {
+    color: yellow;
+}
+.nav-menu > a {
+    text-decoration: none;
+    color: inherit;
+}
+.nav-menu-item {
+    display: none;
+    position: absolute;
+    font-weight: normal;
+    background: steelblue;
+    padding-bottom: 8px;
+    border-radius: 4px;
+}
+.nav-menu-item a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 1px 4px 0 8px;
+}
+.nav-menu:hover .nav-menu-item {
+    display: block;
+}
+
+
+/* accordine sidebar, exclusive(input=radio) or multi-select(input=checkbox) */
+.nav-sidebar {
+    -position: absolute;
+    -top: 32px;
+    -background: #def;
+    width: 240px;
+    min-height: 300px;
+    margin: 0 0 0 0;
+    padding: 12px 16px 0 4px;
+    -border-right: thin dotted black;
+    float: left;
+}
+.nav-sidebar label {
+    font-weight: bold;
+    display: block;
+}
+.nav-sidebar-title {
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 150%;
+}
+.nav-sidebar a {
+    display: block;
+    text-decoration: none;
+    margin: 0;
+}
+.nav-sidebar input {
+    display: none;
+    cursor: pointer;
+}
+.nav-sidebar-cascade a {
+    margin: 0 0 0 5mm;
+}
+.nav-sidebar input + div {
+    display: none;
+}
+.nav-sidebar input:checked {
+    cursor: default;
+}
+.nav-sidebar input:checked + div {
+    display: block;
+}
+.nav-sidebar-direct {
+    margin-top: 12px;
+}
+
+.a-list a {
+    display: block;
+    text-decoration: none;
+}
+
+.content {
+    -position: absolute;
+    -top: 32px;
+    margin: 0 0 0 260px;
+    padding: 0 0 0 12px;
+}
+
+table, tr, th, td {
+    border-collapse: collapse;
+}
+table {
+    min-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+th,td {
+    padding: 2px 8px;
+}
+th {
+    background: darkcyan;
+    color: white;
+}
+tr:nth-child(even) {
+    background: #def;
+}
+
+div.code {
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: thin solid black;
+    box-shadow: 4px 4px 8px grey;
+    white-space: pre;
+}
+
+div.log {
+    background: auto;
+    display: inline-block;
+    -float: right;
+}
+div.log-data {
+    background: #ddd;
+    color: black;
+    padding: 16px;
+    border: thin solid black;
+    white-space: pre;
+    border-radius: 8px;
+    display: none;
+    position: fixed;
+}
+div.log:hover .log-data {
+    display: block;
+}
+
+.button {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 8px;
+    background: gray;
+}
+div.book {
+    margin: 8px; padding: 4px;
+    }
+div.book a {
+    display: block;
+    margin-left: 0.5cm;
+    text-decoration: none;
+    font-weight: normal;
+    }
+div.href a {
+    display: block;
+    margin-left: 0.5cm;
+    text-decoration: none;
+    font-weight: normal;
+    }
+
+/* override chroma syntax.css */
+/* Background */ .chroma { background-color: #f2f8ff;
+    padding: 16px 8px;
+    border-radius: 8px;
+    border: thin solid gray;
+    box-shadow: 4px 4px 8px grey;
+    overflow: auto;
+}
+.chroma .chroma {
+    padding: 0px;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.taxnomy {
+    display: flex;
+    flex-flow: row wrap;
+}
+.taxonomy-term {
+ display: relative;
+ padding: 4px;
+ margin: 12px;
+ box-shadow: 4px 4px 8px lightgray;
+ border-radius: 8px;
+ background: #f8f8ff;
+}
+.term-count {
+    float: right;
+    right: 8px;
+}
+.taxonomy-term h2 {
+    display: block;
+    border-bottom: thin solid lightgray;
+    margin: 0;
+    padding: 0px;
+}
+.taxonomy-term-href {
+    margin: 2px 8px;
+}
+.taxonomy-term a {
+    display: block;
+    -border: thin solid black;
+    -padding: 4px;
+    -margin: 4px;
+    -border-radius: 4px;
+    text-decoration: none;
+    -background: burlywood;
+}

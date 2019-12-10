@@ -1,0 +1,10 @@
+<div class='log'>
+    <div class="button">show log</div>
+    <div class='log-data'>
+{{.}} .File={{.File}}
+{{.Title}}
+{{if .IsHome}}.IsHome{{- end -}}{{if .IsNode }} .IsNode{{end}}{{if .IsPage }} .IsPage{{end}}
+.Kind={{.Kind}} .Type={{.Type}}
+{{ if .Params.toplevel }}.toplevel=true{{ end }}
+    </div>
+</div>

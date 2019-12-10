@@ -1,0 +1,32 @@
+{{/*
+    Show a menu-bar on the top of a page (including list-page)
+    It shows toplevel sections as menu in the menu-bar,
+    and 2nd-level sections as pulldonw menu-items.
+    The href of each menu-item is its first-page.
+*/}}
+<div class="header">
+  <div class="nav-menu-bar">
+    <ul class="nav-menu-bar">
+    {{range .Site.Sections }}
+      <li class="nav-menu">
+        {{ if .Sections }}
+          {{.Title}}
+          <div class="nav-menu-item">
+            {{ range .Sections }}
+              {{ partial "href-first-page.html" . }}
+            {{ end }}
+          </div>
+        {{ else }}
+          {{ partial "href-first-page.html" . }}
+        {{ end }}
+      </li>
+    {{end}}
+    {{ if .Site.Taxonomies }}
+      <li class="nav-menu">
+          Taxonomies
+          {{ partial "nav-taxonomy.html" . }}
+      </li>
+    {{ end }}
+    </ul>
+  </div>
+</div>

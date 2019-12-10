@@ -1,0 +1,6 @@
+{{ range first 1 .Pages }}
+    {{ partial "nav-side.html" . }}
+    {{ range first 1 .Pages }}
+        {{ partial "content.html" . }}
+    {{end}}
+{{ end }}

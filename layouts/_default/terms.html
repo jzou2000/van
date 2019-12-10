@@ -1,0 +1,30 @@
+{{ define "header" }}
+  {{ partial "header.html" . }}
+{{ end }}
+
+
+
+
+{{ define "main" }}
+
+<div class="taxnomy">
+  {{ range .Data.Terms.ByCount }}
+    <div class="taxonomy-term">
+    {{ if gt .Count 8 }}
+      <div class='term-count'>{{.Count}}</div>
+    {{ end }}
+    <h2>{{.Term}}</h2>
+    
+    <div class="taxonomy-term-href">
+    {{ range .Pages}}
+     <a href="{{.Permalink}}">{{default .Title .Params.nav}}</a>
+    {{ end}}
+    </div>
+
+    </div>
+  {{ end }}
+</div>
+
+
+
+{{ end }}

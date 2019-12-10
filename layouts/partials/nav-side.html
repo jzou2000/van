@@ -1,0 +1,41 @@
+{{/*
+  show side bar for a page:
+  if the page section is a toplevel
+      this is single-layer list, simply list section pages
+  else
+      show section parent in form of accordin,
+      with the current section "checked" and others unchecked.
+
+*/}}
+<div class="nav-sidebar">
+  {{$sec := .CurrentSection }}
+  {{$this := $sec}}
+
+  {{ if $sec.Params.toplevel }}
+  {{else}}
+    {{$sec = $sec.Parent}}
+  {{end}}
+  
+  <div class='nav-sidebar-title'>{{$sec.Title}}</div>
+  {{ if $sec.Sections }}
+    {{ range $sec.Sections }}
+      <label for="{{.Title}}">{{.Title}}</label>
+      <input type="radio" name="nav-sidebar" id="{{.Title}}" {{if eq . $this}}checked{{end}}>
+      <div class="nav-sidebar-cascade">
+        {{ range .Pages }}
+          <a href="{{.Permalink}}">{{default .Title .Params.nav}}</a>
+        {{ end }}
+      </div>
+    {{ end }}
+  {{ end }}
+
+  {{/* section may have some "direct" pages (that are directly under the section) */}}
+  <div class='nav-sidebar-direct'>
+  {{ range $sec.Pages }}
+    {{if .IsPage }}
+      <a href="{{.Permalink}}">{{default .Title .Params.nav}}</a>
+    {{end}}
+  {{ end }}
+  </div>
+  
+</div>

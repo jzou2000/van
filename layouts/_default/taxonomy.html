@@ -1,0 +1,18 @@
+{{ define "header" }}
+  {{ partial "header.html" . }}
+{{ end }}
+
+
+
+
+{{ define "main" }}
+
+<div class="a-list">
+    <h2>{{ .Data.Term }}</h2>
+  {{ range .Pages }}
+     <a href="{{.Permalink}}">{{.Title}}</a>
+  {{ end }}
+</div>
+
+
+{{ end }}
