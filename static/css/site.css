@@ -231,3 +231,11 @@ div.href a {
     text-decoration: none;
     -background: burlywood;
 }
+
+.vue-app {
+    background: #eee;
+    border-radius: 8px;
+    box-shadow: 4px 4px 4px grey;
+    padding: 4px 8px 32px 16px;
+    margin: 16px;
+}
