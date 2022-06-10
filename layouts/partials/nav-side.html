@@ -18,11 +18,11 @@
   
   <div class='nav-sidebar-title'>{{$sec.Title}}</div>
   {{ if $sec.Sections }}
-    {{ range $sec.Sections }}
+    {{ range ($sec.Sections.ByTitle) }}
       <label for="{{.Title}}">{{.Title}}</label>
       <input type="radio" name="nav-sidebar" id="{{.Title}}" {{if eq . $this}}checked{{end}}>
       <div class="nav-sidebar-cascade">
-        {{ range .Pages }}
+        {{ range (.Pages.ByParam "nav") }}
           <a href="{{.Permalink}}">{{default .Title .Params.nav}}</a>
         {{ end }}
       </div>
@@ -31,7 +31,7 @@
 
   {{/* section may have some "direct" pages (that are directly under the section) */}}
   <div class='nav-sidebar-direct'>
-  {{ range $sec.Pages }}
+  {{ range ($sec.Pages.ByParam "nav") }}
     {{if .IsPage }}
       <a href="{{.Permalink}}">{{default .Title .Params.nav}}</a>
     {{end}}
