@@ -12,7 +12,7 @@
         {{ if .Sections }}
           {{.Title}}
           <div class="nav-menu-item">
-            {{ range .Sections }}
+            {{ range .Sections.ByTitle }}
               {{ partial "href-first-page.html" . }}
             {{ end }}
           </div>
