@@ -1,41 +1,37 @@
-{{/*
-  show side bar for a page:
-  if the page section is a toplevel
-      this is single-layer list, simply list section pages
-  else
-      show section parent in form of accordin,
-      with the current section "checked" and others unchecked.
-
-*/}}
+<!--
+  show side bar for a section:
+    toplevel                  two levels of hierachies
+    archtype                  one level of children
+-->
 <div class="nav-sidebar">
-  {{$sec := .CurrentSection }}
-  {{$this := $sec}}
-
-  {{ if $sec.Params.toplevel }}
+  {{$hr := 0}}
+  {{if eq .FirstSection .}}<!-- direct below root -->
+    {{range .Sections.ByTitle}}<a href="{{.Permalink}}" class="nav-sidebar-section">{{.Title}}</a>{{end}}
+    {{if and .Sections .RegularPages}}<hr/>{{end}}
+    {{range .RegularPages.ByTitle}}<a href="{{.Permalink}}">{{.Title}}</a>{{end}}
   {{else}}
-    {{$sec = $sec.Parent}}
-  {{end}}
-  
-  <div class='nav-sidebar-title'>{{$sec.Title}}</div>
-  {{ if $sec.Sections }}
-    {{ range ($sec.Sections.ByTitle) }}
-      <label for="{{.Title}}">{{.Title}}</label>
-      <input type="radio" name="nav-sidebar" id="{{.Title}}" {{if eq . $this}}checked{{end}}>
-      <div class="nav-sidebar-cascade">
-        {{ range (.Pages.ByParam "nav") }}
-          <a href="{{.Permalink}}">{{default .Title .Params.nav}}</a>
-        {{ end }}
-      </div>
+    {{$thisSection := .CurrentSection }}
+    {{$toplevel := $thisSection}}
+    {{ if ne .FirstSection $toplevel.Parent }}  {{$toplevel = $toplevel.Parent}} {{end}}
+    
+    <div class='nav-sidebar-title'>{{$toplevel.Title}}</div>
+    {{ if $toplevel.Sections }}
+      {{ range ($toplevel.Sections.ByTitle) }}
+        <label for="{{.Title}}">{{.Title}}</label>
+        <input type="radio" name="nav-sidebar" id="{{.Title}}" class='nav-section-{{replace .Title " " "-"}}'>
+        <div class="nav-sidebar-cascade">
+          {{ range (.Pages.ByParam "nav") }}
+            <a href="{{.Permalink}}">{{default .Title .Params.nav}}</a>
+          {{ end }}
+        </div>
+      {{ end }}
     {{ end }}
-  {{ end }}
-
-  {{/* section may have some "direct" pages (that are directly under the section) */}}
-  <div class='nav-sidebar-direct'>
-  {{ range ($sec.Pages.ByParam "nav") }}
-    {{if .IsPage }}
-      <a href="{{.Permalink}}">{{default .Title .Params.nav}}</a>
-    {{end}}
-  {{ end }}
-  </div>
+    <!-- section may have some "direct" pages (that are directly under the section) -->
+    <div class='nav-sidebar-direct'>
+      {{ range ($toplevel.RegularPages.ByParam "nav")}}
+          <a href="{{.Permalink}}">{{default .Title .Params.nav}}</a>
+      {{ end }}
+    </div>
+  {{end}}
   
 </div>

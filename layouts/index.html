@@ -1,22 +1,13 @@
+
 {{ define "header" }}
-    
-  {{ partial "header.html" . }}
+  {{ partialCached "header.html" . }}
 {{ end }}
 
-
-
-
 {{ define "main" }}
-<div>
-    {{ range first 1 .Sections }}
-      {{ if .Sections }}
-        {{ range first 1 .Sections }}
-            {{ partial "show-first-page.html" .}}
-        {{ end }}
-      {{ else }}
-        {{ partial "show-first-page.html" . }}
-      {{ end }}
-    {{ end }}
+  <div>
+      <h1>{{.Title}}</h1>
 
-</div>
+      {{ .Content }}
+
+  </div>
 {{ end }}

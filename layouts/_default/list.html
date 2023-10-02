@@ -1,21 +1,15 @@
 {{ define "header" }}
-  {{ partial "header.html" . }}
+  {{ partialCached "header.html" . }}
 {{ end }}
-
-
-
-
 {{ define "main" }}
-
-<div>
-  {{ range first 1 .Pages }}
-    {{ partial "nav-side.html" . }}
-    {{ range first 1 .Pages }}
-        {{ partial "content.html" . }}
-    {{ end }}
-  {{ end }}
-</div>
-
-
-
+  <div>
+    {{ $toplevel := .CurrentSection }}
+    {{ if gt $toplevel.Ancestors.Len 2 }} {{ $toplevel = index $toplevel.Ancestors 2 }} {{end}}
+    {{ partialCached "nav-side.html" $toplevel $toplevel }}
+    {{if eq .FirstSection .}}{{/*direct below root*/}}
+      {{ partialCached "content.html" . . }}
+    {{else}}
+      {{ range first 1 .Pages }}{{ partialCached "content.html" . . }}{{ end }}
+    {{end}}
+  </div>
 {{ end }}

@@ -1,10 +1,16 @@
 {{ define "header" }}
- {{ partial "header.html" . }}
+  {{ partialCached "header.html" . }}
 {{ end }}
 
 {{ define "main" }}
-<div>
-  {{ partial "nav-side.html" . }}
-  {{ partial "content.html" . }}
-</div>
+  <div>
+    {{ $toplevel := .CurrentSection }}
+    <!--{{ if gt $toplevel.Ancestors.Len 2 }} {{ $toplevel = $toplevel.Parent }} {{end}}-->
+    {{ if gt $toplevel.Ancestors.Len 2 }} {{ $toplevel = index $toplevel.Ancestors 2 }} {{end}}
+    {{ partialCached "nav-side.html" $toplevel $toplevel }}
+    {{ partialCached "content.html" . . }}
+  </div>
+  <script>
+    nav_set_current_section({{ replace .CurrentSection.Title " " "-" }})
+  </script>
 {{ end }}

@@ -4,29 +4,28 @@
     and 2nd-level sections as pulldonw menu-items.
     The href of each menu-item is its first-page.
 */}}
+
 <div class="header">
   <div class="nav-menu-bar">
+    
     <ul class="nav-menu-bar">
-    {{range .Site.Sections }}
-      <li class="nav-menu">
-        {{ if .Sections }}
-          {{.Title}}
+      <li class="nav-menu">  <a href="/">Home</a> </li>
+
+      {{range .Site.Sections }}<li class="nav-menu">
+        {{ if .Pages }}<a href="{{.Permalink}}">{{.Title}}</a>
           <div class="nav-menu-item">
-            {{ range .Sections.ByTitle }}
-              {{ partial "href-first-page.html" . }}
-            {{ end }}
-          </div>
-        {{ else }}
-          {{ partial "href-first-page.html" . }}
-        {{ end }}
-      </li>
-    {{end}}
-    {{ if .Site.Taxonomies }}
-      <li class="nav-menu">
+            {{ range .Sections.ByTitle }}<a href="{{.Permalink}}">{{.Title}}</a> {{ end }}
+            {{if and .Sections .RegularPages}}<hr/>{{end}}
+            {{ range .RegularPages.ByTitle }}<a href="{{.Permalink}}">{{.Params.nav}}</a> {{ end }}
+          </div>{{ end }}
+      </li>{{ end }}
+
+    <!--      stop showing Taxonomies
+    {{ if .Site.Taxonomies }}<li class="nav-menu">
           Taxonomies
-          {{ partial "nav-taxonomy.html" . }}
-      </li>
-    {{ end }}
+          {{ partialCached "nav-taxonomy.html" . . }}
+      </li>{{ end }}
+    -->
     </ul>
   </div>
 </div>

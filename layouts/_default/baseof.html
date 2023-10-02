@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}">
+{{if or (trim .Content "\t \n") (eq .Kind "page")}}
+  <head>
+    {{ partialCached "head-std.html" . }}
+    {{ partialCached "head-ext.html" . }}
+  </head>
 
-<head>
-  {{ partial "head-std.html" . }}
-  {{ partial "head-ext.html" . }}
-</head>
-
-<body>
-    {{ block "header" . }}
-    {{ end }}
-
-    {{ block "main" . }}
-    {{ end }}
-    
-    {{ block "footer" . }}
-    {{ end }}
-</body>
+  <body>
+      {{ block "header" . }} {{ end }}
+      {{ block "main" . }}   {{ end }}
+      {{ block "footer" . }} {{ end }}
+  </body>
+{{else}}  <!-- blank list-content, redirect to its first child -->
+  {{ partial "refresh.html" . }}
+  </head>
+  <body/>
+{{end}}
 </html>
