@@ -1,22 +1,12 @@
 {{ define "header" }}
-    
+  {{ partial "menu.html" . }}
   {{ partial "header.html" . }}
 {{ end }}
 
-
-
-
 {{ define "main" }}
-<div>
-    {{ range first 1 .Sections }}
-      {{ if .Sections }}
-        {{ range first 1 .Sections }}
-            {{ partial "show-first-page.html" .}}
-        {{ end }}
-      {{ else }}
-        {{ partial "show-first-page.html" . }}
-      {{ end }}
-    {{ end }}
+  {{.Content}}
+{{ end }}
 
-</div>
+{{ define "footer" }}
+  <div id="index-container"></div>
 {{ end }}

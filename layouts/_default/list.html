@@ -1,21 +1,8 @@
 {{ define "header" }}
-  {{ partial "header.html" . }}
+    {{ partial "menu.html" . }}
+    {{ partial "header.html" . }}
 {{ end }}
 
-
-
-
 {{ define "main" }}
-
-<div>
-  {{ range first 1 .Pages }}
-    {{ partial "nav-side.html" . }}
-    {{ range first 1 .Pages }}
-        {{ partial "content.html" . }}
-    {{ end }}
-  {{ end }}
-</div>
-
-
-
+    {{ partial "content.html" . }}
 {{ end }}

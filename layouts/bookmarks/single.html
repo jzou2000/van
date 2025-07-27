@@ -1,12 +1,9 @@
 {{ define "header" }}
- {{ partial "header.html" . }}
+ {{ partial "menu.html" . }}
 {{ end }}
 
 {{ define "main" }}
-<div>
-  {{ partial "nav-side.html" . }}
   <div class='href'>
-  {{ partial "content.html" . }}
+    {{ partial "content.html" . }}
   </div>
-</div>
 {{ end }}

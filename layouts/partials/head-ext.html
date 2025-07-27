@@ -1,4 +1,16 @@
-{{ if .Params.vue }}
-<script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+<!-- https://unpkg.com/vue@3.4.15/dist/vue.global.js -->
+<!--
+<script src='/js/vue.global.js'></script>
 <script src='/js/vuex.js'></script>
+-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+{{ if .Params.gsap }}
+<!-- https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js -->
+<script src='/js/gsap.min.js'></script>
+{{ end }}
+{{ if .Params.animejs }}
+<!-- https://github.com/juliangarnier/anime/ -->
+<script src='/js/anime.min.js'></script>
 {{ end }}
