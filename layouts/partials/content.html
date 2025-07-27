@@ -1,3 +1,10 @@
+{{ if eq $.CurrentSection.Ancestors.Len 1 }}
+<div>
+  <h1>{{.Title}}</h1>
+  {{.Content}}
+</div>
+<div id="index-container"></div>
+{{else}}
 <div class="van-content-container">
   <div id="index-container" class="van-content-index"></div>
   <div class="van-content">
@@ -5,3 +12,4 @@
     {{.Content}}
   </div>
 </div>
+{{end}}

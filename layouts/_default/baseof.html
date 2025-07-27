@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}">
+  <head>
+    {{ partialCached "head-std.html" . }}
+    {{ partialCached "head-ext.html" . }}
+  </head>
 
 <head>
   {{ partial "head-std.html" . }}

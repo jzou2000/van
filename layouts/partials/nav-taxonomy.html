@@ -1,8 +1,5 @@
-{{/*
-    List all taxonomies of the site
-*/}}
+<!-- List all taxonomies of the site -->
 <div class="nav-menu-item">
-    {{ range $name, $taxonomy := .Site.Taxonomies }}
-    <a href='/{{$name}}'>{{$name}}</a>
+    {{ range $name, $taxonomy := .Site.Taxonomies }}<a href='/{{$name}}'>{{$name}}</a>
     {{ end }}
 </div>
