@@ -1,0 +1,13 @@
+{{- $id := .Get "id" | default (printf "bookmarks-%d" .Ordinal) -}}
+{{- $size := .Get "size" | default "large" -}}
+{{- $yaml := .Inner -}}
+<div id="{{ $id }}" class="van-bookmarks van-bookmarks-{{ $size }}"></div>
+<script type="module">
+import { renderBookmarks } from '/js/bookmarks.js';
+
+try {
+  renderBookmarks('{{ $id }}', "{{ $yaml | safeJS }}");
+} catch (e) {
+  console.error('Error rendering bookmarks:', e);
+}
+</script>

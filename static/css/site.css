@@ -98,49 +98,79 @@ div.href a {
     margin: 16px;
 }
 
-.bookmark {
-    background-color: #efe;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    padding: 4px;
-    margin: 4px 4px;
-    max-width: 60%;
+
+/* static/css/bookmarks.css */
+.van-bookmarks {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: 2rem 0;
+}
+
+@media (max-width: 768px) {
+    .van-bookmarks {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.van-bookmarks-large .van-bookmark {
+    -max-width: 300px;
+    -min-width: 200px;
+}
+
+.van-bookmarks-medium .van-bookmark {
+    -max-width: 200px;
+    -min-width: 128px;
+}
+
+.van-bookmark {
+    -width: 100%;
+    background-color: lightblue;
+    border-radius: 12px;
+    padding: 8px;
+}
+
+.van-bookmark-link {
     display: flex;
-    align-items: flex-start;
-    gap: 4px;
+    flex-direction: column;
     text-decoration: none;
     color: inherit;
+    transition: transform 0.2s ease;
 }
 
-.bookmark-image {
-    flex-shrink: 0;
+.van-bookmark-link:hover {
+    transform: translateY(-2px);
 }
 
-.bookmark-content {
-    flex: 1;
-    min-width: 0;
+.van-bookmarks-large .van-bookmark-image {
+    height: 128px;
+    width: 100%;
+    object-fit: scale-down;
+    margin-bottom: 0.5rem;
+    border-radius: 12px;
 }
 
-.bookmark-title {
-    margin: 0 0 8px 0; 
-    font-size: 1.2em; 
-    font-weight: bold; 
-    color: #2c3e50;
-    line-height: 1.3;
+.van-bookmarks-medium .van-bookmark-image {
+    height: 64px;
+    width: 100%;
+    object-fit: scale-down;
+    margin-bottom: 0.5rem;
+    border-radius: 12px;
 }
 
-.bookmark-description {
-    margin: 2px 0px 2px 5mm;
-    color: #6c757d; 
-    font-size: 0.95em; 
+.van-bookmark-title {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+    text-align: center;
+    padding: 4px;
+}
+
+.van-bookmark-description {
+    font-size: 0.9rem;
     line-height: 1.4;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    -text-align: justify;
+    padding: 4px;
 }
-
-
 
 /*-------------- for menu and content list -----------------------------*/
 

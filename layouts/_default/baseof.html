@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}">
+{{ $target := "" }}
+{{ if and .IsSection (not .IsHome) (eq (trim .Content "\t \n") "") }}
+  {{/* println "blank section" .Permalink */}}
+  
+  {{ if .Params.refresh }}
+    {{ $target = .Params.refresh }}
+  {{ else }}
+    {{ $firstPage := first 1 .Pages }}
+    {{ with index $firstPage 0 }}
+      {{ $target = .RelPermalink }}
+    {{ end }}
+  {{ end }}
+
+{{ end }}
+
+{{ if $target }}
   <head>
-    {{ partialCached "head-std.html" . }}
-    {{ partialCached "head-ext.html" . }}
+    <meta http-equiv="refresh" content="0; url={{- $target -}}">
+  </head>
+  <body></body>
+{{ else }}
+  <head>
+    {{ partial "head-std.html" . }}
+    {{ partial "head-ext.html" . }}
   </head>
 
-<head>
-  {{ partial "head-std.html" . }}
-  {{ partial "head-ext.html" . }}
-</head>
-
-<body>
+  <body>
     {{ block "header" . }}
     {{ end }}
 
@@ -23,5 +39,6 @@
     <!-- Load the menu module -->
     <script src="/js/menu-module.js"></script>
     <script src="/js/index-module.js"></script>
-</body>
+  </body>
+{{ end }}
 </html>
