@@ -98,6 +98,63 @@ div.href a {
     margin: 16px;
 }
 
+/* embedded youtube */
+.yt-wrapper {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 16px;
+}
+@media (max-width: 768px) {
+    .yt-wrapper {
+        grid-template-columns: auto;
+    }
+}
+div.yt {
+  height: 320px;
+}
+div.yt iframe {
+  height: 100%;
+  width: 100%;
+  border: none;
+}
+
+/* van-ivlist */
+.van-ivlist {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-gap: 16px;
+    margin: 5mm 4mm;
+}
+@media (max-width: 768px) {
+    .van-ivlist {
+        display: block;
+        padding: 16px;
+    }
+    .van-ivlist > div {
+        margin-top: 5mm;
+    }
+}
+.van-ivlist-imgv {
+    min-height:320px;
+}
+div.van-ivlist-imgv iframe {
+    height: 100%;
+    width: 100%;
+    border: none;
+}
+div.van-ivlist-imgv img {
+    height: 100%;
+    width: 100%;
+    left: auto;
+    border: none;
+}
+.van-ivlist-desc {
+    padding: 5mm 5mm;
+}
+.van-ivlist-title {
+    font-size: 120%;
+    font-weight: bold;
+}
 
 /* static/css/bookmarks.css */
 .van-bookmarks {
