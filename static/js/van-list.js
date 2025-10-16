@@ -8,7 +8,17 @@ function _createItem(container, item) {
     const img = document.createElement('img');
     img.className = 'van-ivlist-img';
     img.src = item.img;
-    iv.appendChild(img);
+    if (item.href) {
+      const a = document.createElement('a');
+      a.href = item.href;
+      if (item.blank) {
+        a.target = "_blank";
+      }
+      a.appendChild(img);
+      iv.appendChild(a);
+    } else {
+      iv.appendChild(img);
+    }
   }
   
   if (item.yt) {
