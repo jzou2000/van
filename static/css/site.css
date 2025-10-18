@@ -136,6 +136,7 @@ div.yt iframe {
 }
 .van-ivlist-imgv {
     min-height:320px;
+    border-radius: 16px;
 }
 div.van-ivlist-imgv iframe {
     height: 100%;
@@ -147,6 +148,7 @@ div.van-ivlist-imgv img {
     width: 100%;
     left: auto;
     border: none;
+    border-radius: 16px;
 }
 .van-ivlist-desc {
     padding: 5mm 5mm;
@@ -154,6 +156,12 @@ div.van-ivlist-imgv img {
 .van-ivlist-title {
     font-size: 120%;
     font-weight: bold;
+}
+
+.van-img {
+    max-width: 80%;
+    left: auto;
+    border-radius: 16px;
 }
 
 /* static/css/bookmarks.css */
