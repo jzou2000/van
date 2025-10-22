@@ -1,5 +1,4 @@
-{{/* this is a synonym of img-grid for backward compatibility and convenience */}}
-{{- $id := .Get "id" | default (printf "bookmarks-%d" .Ordinal) -}}
+{{- $id := .Get "id" | default (printf "img-grid-%d" .Ordinal) -}}
 {{- $size := .Get "size" | default "large" -}}
 {{- $yaml := .Inner -}}
 <div id="{{ $id }}" class="van-img-grid van-img-grid-{{ $size }}"></div>
