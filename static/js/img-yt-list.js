@@ -34,25 +34,25 @@ function _createItem(container, item, opt) {
   }
 
   const desc = document.createElement('div');
-  desc.className = 'van-ivlist-desc';
+  desc.className = 'van-list-desc';
   
   if (item.title) {
     const title = document.createElement('div');
-    title.className = 'van-ivlist-title';
+    title.className = 'van-list-title';
     title.textContent = item.title;
     desc.appendChild(title);
   }
   
   if (item.text) {
     const text = document.createElement('div');
-    text.className = 'van-ivlist-text';
+    text.className = 'van-list-text';
     text.innerHTML = marked.parse(item.text);
     desc.appendChild(text);
   }
   
   if (item.description) {
     const text = document.createElement('div');
-    text.className = 'van-ivlist-text';
+    text.className = 'van-list-text';
     text.innerHTML = marked.parse(item.description);
     desc.appendChild(text);
   }

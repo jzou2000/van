@@ -23,6 +23,12 @@ th {
 tr:nth-child(even) {
     background: #def;
 }
+th:nth-child(1) {
+    white-space: nowrap;
+}
+td:nth-child(1) {
+    white-space: nowrap;
+}
 
 div.code {
     padding: 4px 8px;
@@ -145,6 +151,14 @@ div.yt iframe {
     grid-template-columns: 400px auto;
     grid-auto-rows: minmax(300px, max-content);
 }
+.van-img-list-jumbo {
+    grid-template-columns: 640px auto;
+    -grid-auto-rows: minmax(480px, max-content);
+}
+.van-img-list-full {
+    grid-template-columns: 80% auto;
+    -grid-auto-rows: minmax(600px, max-content);
+}
 @media (max-width: 768px) {
     .van-img-list, .van-yt-list {
         display: block;
@@ -156,6 +170,7 @@ div.yt iframe {
     width: 100%;
     margin: auto;
     border: none;
+    display: block;
 }
 .van-list-head iframe {
     height: 100%;
@@ -171,11 +186,23 @@ div.yt iframe {
 }
 
 .van-img {
-    max-width: 80%;
-    left: auto;
+    max-width: 640px;
+    display: block;
+    margin: auto;
     border-radius: 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
 }
-
+.van-img-medium {
+    max-width: 640px;
+}
+.van-img-large {
+    max-width: 800px;
+}
+.van-img-full {
+    max-width: 98%;
+    width: 80%;
+}
 
 /* img-grid
      img-grid-item
