@@ -497,6 +497,10 @@ body {
 
 .van-href img {
     height: 64px;
+    max-width: 96px;
+    display: block;
+    margin: auto;
+    border-radius: 8px;
 }
 
 .van-icon {
