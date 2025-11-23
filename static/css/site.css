@@ -193,6 +193,9 @@ div.yt iframe {
     margin-top: 16px;
     margin-bottom: 16px;
 }
+.van-img-small {
+    max-width: 320px;
+}
 .van-img-medium {
     max-width: 640px;
 }
