@@ -118,6 +118,9 @@ div.href a {
 div.yt {
   height: 320px;
 }
+.van-yt-list-medium div.yt {
+  height: 240px;
+}
 div.yt iframe {
   height: 100%;
   width: 100%;
@@ -128,6 +131,13 @@ div.yt iframe {
 .van-yt-list {
     display: grid;
     grid-template-columns: 640px auto;
+    grid-auto-rows: minmax(360px, max-content);
+    grid-gap: 16px;
+    margin: 16px;
+}
+.van-yt-list-medium {
+    display: grid;
+    grid-template-columns: 480px auto;
     grid-auto-rows: minmax(360px, max-content);
     grid-gap: 16px;
     margin: 16px;
@@ -228,13 +238,13 @@ div.yt iframe {
 }
 
 .van-img-grid-large .van-img-grid-item {
-    -max-width: 300px;
-    -min-width: 200px;
+    max-width: 300px;
+    min-width: 200px;
 }
 
 .van-img-grid-medium .van-img-grid-item {
-    -max-width: 200px;
-    -min-width: 128px;
+    max-width: 200px;
+    min-width: 128px;
 }
 
 .van-img-grid-item {
