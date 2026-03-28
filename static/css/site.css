@@ -238,13 +238,13 @@ div.yt iframe {
 }
 
 .van-img-grid-large .van-img-grid-item {
-    max-width: 300px;
-    min-width: 200px;
+    -max-width: 300px;
+    -min-width: 200px;
 }
 
 .van-img-grid-medium .van-img-grid-item {
-    max-width: 200px;
-    min-width: 128px;
+    -max-width: 200px;
+    -min-width: 128px;
 }
 
 .van-img-grid-item {
