@@ -115,33 +115,9 @@ div.href a {
         grid-template-columns: auto;
     }
 }
-div.yt {
-  height: 320px;
-}
-.van-yt-list-medium div.yt {
-  height: 240px;
-}
-div.yt iframe {
-  height: 100%;
-  width: 100%;
-  border: none;
-}
 
 /* van-img-list && van-yt-list */
-.van-yt-list {
-    display: grid;
-    grid-template-columns: 640px auto;
-    grid-auto-rows: minmax(360px, max-content);
-    grid-gap: 16px;
-    margin: 16px;
-}
-.van-yt-list-medium {
-    display: grid;
-    grid-template-columns: 480px auto;
-    grid-auto-rows: minmax(360px, max-content);
-    grid-gap: 16px;
-    margin: 16px;
-}
+/*
 .van-img-list {
     display: grid;
     grid-template-columns: 400px auto;
@@ -169,11 +145,30 @@ div.yt iframe {
     grid-template-columns: 80% auto;
     -grid-auto-rows: minmax(600px, max-content);
 }
+*/
+.van-list-item {    /* medium */
+    display: grid;
+    grid-template-columns: 480px auto;
+    grid-auto-rows: minmax(300px, max-content);
+    grid-gap: 16px;
+    margin: 16px;
+}
 @media (max-width: 768px) {
-    .van-img-list, .van-yt-list {
+    .van-list-item {
         display: block;
         padding: 16px;
     }
+}
+.van-list-item-large {
+    grid-template-columns: 640px auto;
+    grid-auto-rows: minmax(480px, max-content);
+}
+.van-list-item-small {
+    grid-template-columns: 320px auto;
+    grid-auto-rows: minmax(240px, max-content);
+}
+.van-list-item > div {
+    -margin-bottom: 8px;
 }
 .van-list-head img {
     border-radius: 16px;
@@ -182,10 +177,13 @@ div.yt iframe {
     border: none;
     display: block;
 }
-.van-list-head iframe {
-    height: 100%;
+.van-list-head .van-list-yt {
+    height: 320px;
     width: 100%;
     border: none;
+}
+.van-list-head-small .van-list-yt {
+    height: 240px;
 }
 .van-list-desc {
     padding: 8px 8px;
@@ -235,16 +233,6 @@ div.yt iframe {
     .van-img-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-}
-
-.van-img-grid-large .van-img-grid-item {
-    -max-width: 300px;
-    -min-width: 200px;
-}
-
-.van-img-grid-medium .van-img-grid-item {
-    -max-width: 200px;
-    -min-width: 128px;
 }
 
 .van-img-grid-item {

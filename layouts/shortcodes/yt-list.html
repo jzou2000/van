@@ -1,11 +1,14 @@
 {{- $id := .Get "id" | default (printf "van-list-%d" .Ordinal) -}}
 {{- $yaml := .Inner -}}
+{{- $size := .Get "size" | default "large" -}}
 <div id="{{ $id }}" class="van-yt-list"></div>
 <script type="module">
 import { renderImgYtList } from '/js/img-yt-list.js';
 
 try {
-  renderImgYtList('{{ $id }}', "{{ $yaml | safeJS }}");
+  renderImgYtList('{{ $id }}', "{{ $yaml | safeJS }}",
+    { size: "{{$size}}"}
+  );
 } catch (e) {
   console.error('Error rendering van-list:', e);
 }

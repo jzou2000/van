@@ -8,7 +8,8 @@ import { renderImgYtList } from '/js/img-yt-list.js';
 
 try {
   renderImgYtList('{{ $id }}', "{{ $yaml | safeJS }}",
-    { size: "{{$size}}",
+    {
+      size: "{{$size}}",
       blank: "{{$blank}}"
     }
   );

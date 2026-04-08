@@ -2,9 +2,15 @@ import { load } from 'https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/+esm';
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 
 function _createItem(container, item, opt) {
+  const el = document.createElement('div');
+  el.className = 'van-list-item';
   const size = opt?.size;
   const head = document.createElement('div');
-  head.className = 'van-list-head' + (size ? ' van-list-head-' + size : '');
+  head.className = 'van-list-head';
+  if (size) {
+    el.classList.add('van-list-item-' + size);
+    head.classList.add('van-list-head-' + size);
+  }
   
   if (item.img) {
     const img = document.createElement('img');
@@ -57,11 +63,12 @@ function _createItem(container, item, opt) {
     desc.appendChild(text);
   }
   
-  container.appendChild(head);
-  container.appendChild(desc);
+  el.appendChild(head);
+  el.appendChild(desc);
+  container.appendChild(el);
 }
 
-export function renderImgYtList(containerId, yamlContent, opt = undefined) {
+export function renderImgYtList(containerId, yamlContent, opt) {
   const container = document.getElementById(containerId);
   if (!container) {
     throw new Error(`Container with ID ${containerId} not found`);
