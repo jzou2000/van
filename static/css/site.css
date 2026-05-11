@@ -117,35 +117,7 @@ div.href a {
 }
 
 /* van-img-list && van-yt-list */
-/*
-.van-img-list {
-    display: grid;
-    grid-template-columns: 400px auto;
-    grid-auto-rows: minmax(300px, max-content);
-    grid-gap: 16px;
-    margin: 16px;
-}
-.van-img-list-small {
-    grid-template-columns: 120px auto;
-    grid-auto-rows: minmax(80px, max-content);
-}
-.van-img-list-medium {
-    grid-template-columns: 200px auto;
-    grid-auto-rows: minmax(160px, max-content);
-}
-.van-img-list-large {
-    grid-template-columns: 400px auto;
-    grid-auto-rows: minmax(300px, max-content);
-}
-.van-img-list-jumbo {
-    grid-template-columns: 640px auto;
-    -grid-auto-rows: minmax(480px, max-content);
-}
-.van-img-list-full {
-    grid-template-columns: 80% auto;
-    -grid-auto-rows: minmax(600px, max-content);
-}
-*/
+
 .van-list-item {    /* medium */
     display: grid;
     grid-template-columns: 480px auto;
@@ -153,10 +125,30 @@ div.href a {
     grid-gap: 16px;
     margin: 16px;
 }
+.van-list-head img {
+    border-radius: 16px;
+    width: 100%;
+    margin: auto;
+    border: none;
+    display: block;
+}
 @media (max-width: 768px) {
     .van-list-item {
         display: block;
         padding: 16px;
+    }
+    .van-list-item-tiny {
+        display: grid;
+    }
+    .van-list-head img {
+        border-radius: 16px;
+        width: auto;
+    }
+    .van-list-head-tiny img {
+        width: 160px;
+    }
+    .van-list-head-small img {
+        width: 320px;
     }
 }
 .van-list-item-large {
@@ -167,15 +159,9 @@ div.href a {
     grid-template-columns: 320px auto;
     grid-auto-rows: minmax(240px, max-content);
 }
-.van-list-item > div {
-    -margin-bottom: 8px;
-}
-.van-list-head img {
-    border-radius: 16px;
-    width: 100%;
-    margin: auto;
-    border: none;
-    display: block;
+.van-list-item-tiny {
+    grid-template-columns: 160px auto;
+    grid-auto-rows: minmax(120px, max-content);
 }
 .van-list-head .van-list-yt {
     height: 320px;
@@ -184,6 +170,9 @@ div.href a {
 }
 .van-list-head-small .van-list-yt {
     height: 240px;
+}
+.van-list-head-tiny .van-list-yt {
+    height: 120px;
 }
 .van-list-desc {
     padding: 8px 8px;
@@ -200,6 +189,9 @@ div.href a {
     border-radius: 16px;
     margin-top: 16px;
     margin-bottom: 16px;
+}
+.van-img-tiny {
+    max-width: 160px;
 }
 .van-img-small {
     max-width: 320px;
