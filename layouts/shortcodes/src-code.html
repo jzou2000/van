@@ -1,0 +1,37 @@
+{{- /*
+Shortcode for including source code from a specified list of files with syntax highlighting.
+
+Parameters:
+  files: comma-separated list of file paths to include.
+  lang: (optional) force highlight language for all blocks (e.g., "python", "js")
+  caption: (optional) custom label/caption for the code block; if omitted, use file name.
+  embed: (optional) if set, concatenate all files and output as HTML directly (raw, unescaped, for true embedding).
+  hl: (optional) highlight lines, accepts Hugo line highlight string (e.g., "2,5-7")
+Usage example:
+  {{< src-code files="foo.py,bar.js" lang="python" caption="Example code" hl="2,4-6" >}}
+  {{< src-code files="main.cpp,util.h" embed="true" >}}
+*/ -}}
+
+{{- $filesParam := .Get "files" -}}
+{{- $lang := .Get "lang" | default "" -}}
+{{- $caption := .Get "caption" | default "" -}}
+{{- $hl := .Get "hl" | default "" -}}
+{{- $embed := .Get "embed" | default "" -}}
+{{- $files := split $filesParam "," -}}
+
+{{- $langByExt := dict
+  "js" "javascript"
+  "css" "css"
+  "html" "html"
+  "md" "markdown"
+  "svg" "svg"
+  "xml" "xml"
+  "c" "c"
+  "cpp" "cpp"
+  "c++" "cpp"
+  "h" "cpp"
+  "java" "java"
+  "py" "python"
+  "sh" "bash"
+-}}
+
