@@ -95,7 +95,31 @@ div.href a {
     border-radius: 0;
     box-shadow: none;
 }
-
+.src-code-block .chroma {
+    background-color: none;
+    border-radius: 0px;
+    border: none;
+    box-shadow: none;
+    overflow: none;
+    width: 100%;
+    min-width: none;
+    max-width: none;
+    padding: 0px;
+}
+.src-code-block {
+    background-color: #f2f8ff;
+    overflow: auto;
+    border-radius: 8px;
+    border: thin solid gray;
+    margin: 8px 16px 16px 8px;
+    padding: 8px;
+}
+.src-code-filename {
+    font-family: monospace;
+    font-size: .9em;
+    font-weight: bold;
+    margin: 8px 0px;
+}
 .vue-app {
     background: #eee;
     border-radius: 8px;

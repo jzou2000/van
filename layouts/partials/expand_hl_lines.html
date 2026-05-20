@@ -1,0 +1,19 @@
+{{- $input := . -}}
+{{- $expanded := slice -}}
+
+{{- range (split $input " ") -}}
+  {{- if findRE "^[0-9]+-[0-9]+$" . -}}
+    {{- $parts := split . "-" -}}
+    {{- $start := index $parts 0 | int -}}
+    {{- $end := index $parts 1 | int -}}
+
+    {{- range seq $start $end -}}
+      {{- $expanded = $expanded | append (printf "%d" .) -}}
+    {{- end -}}
+
+  {{- else -}}
+    {{- $expanded = $expanded | append . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- delimit $expanded " " -}}
