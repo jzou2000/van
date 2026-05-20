@@ -561,6 +561,28 @@ body {
         height: 45px;
     }
     
+    .van-items {
+        margin: 2mm 2mm;
+        display: grid;
+        gap: 4px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .van-items a {
+        min-width: 32px;
+    }
+    .van-href img {
+        height: 48px;
+        max-width: 48px;
+    }
+    .van-href-title {
+        /* font-weight: bold; */
+        font-size: 75%;
+    }
+    
+    .van-href-noimg-title {
+        font-size: 100%;
+    }
+    
     .menu-item img {
         width: 32px;
         height: 32px;
