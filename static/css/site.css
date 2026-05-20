@@ -4,7 +4,13 @@
     padding: 12px;
     background: lightgray;
 }
-
+.van-debug {
+    margin: 8px 0px;
+    padding: 12px;
+    color: red;
+    border: thin solid red;
+    background: lightgray;
+}
 table, tr, th, td {
     border-collapse: collapse;
 }

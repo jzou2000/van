@@ -1,46 +1,108 @@
-{{/* 
-  Shortcode: src-code
-  Displays files from Page Resources with Hugo syntax highlighting.
-  Arguments:
-    files    - Comma-separated list of resource file names.
-    lang     - (optional) Language override for all files.
-    lines    - (optional) Height (in lines) of scroll window.
-    hl       - (optional) Comma-separated quoted line numbers/ranges, e.g., hl="1,3-5"
-    embedded - (optional) For js,css,html,ts: inject as block.
-    - Uses .Page.Resources.GetMatch for reading content.
-    - $ctx holds page context for use in loops.
-*/}}
-
+{{- /* 
+  Hugo shortcode: src-code
+  - files: comma-separated resource names (optional). Reads each as .Page.Resources.
+  - lang: (optional) language override for unknown file types, or for inline content.
+  - lines: (optional) max height for scrolling window (lines).
+  - hl: (optional) highlight lines range(s), e.g. "4-6".
+  - embedded: (optional) for html,css,js,ts sources: concatenate and emit as appropriate tags.
+  If files is omitted, uses inner shortcode content as code.
+*/ -}}
 {{- $ctx := . -}}
 {{- $params := $ctx.Params -}}
-{{- $fileList := "" -}}
-{{- if $params.files }}
-  {{- $fileList = split (string $params.files) "," -}}
-{{- else }}
-  <div style="color: red">No files specified to display with src-code.</div>
-  {{- return -}}
-{{- end }}
-
 {{- $lang := $params.lang | default "" -}}
-{{- $linesScroll := $params.lines | default 0 | int -}}
+{{- $linesScroll := (default 0 $params.lines) | int -}}
 {{- $hl := $params.hl | default "" -}}
 {{- $embeddedStr := $params.embedded | default "false" | lower -}}
 {{- $embedded := eq $embeddedStr "true" -}}
+{{- $highlightParams := slice "linenos=table" -}}
+{{- if $hl }}
+  {{- $highlightParams = $highlightParams | append (printf "hl_lines=%s" $hl) -}}
+{{- end }}
+{{- $highlightOpts := delimit $highlightParams "," -}}
 
 {{- $knownExtMap := dict
   "c" "c" "cpp" "cpp" "h" "c" "hpp" "cpp"
   "go" "go" "java" "java"
-  "html" "html" "css" "css" "js" "js" "ts" "typescript"
+  "html" "html" "css" "css"
+  "js" "js" "ts" "typescript"
   "md" "markdown" "py" "python" "svg" "xml" "xml" "xml"
   "json" "json" "yaml" "yaml" "yml" "yaml" "toml" "toml"
 -}}
 
-{{- /* Embedded mode for css/js/ts/html files */ -}}
+{{- $fileList := slice -}}
+{{- $useFiles := false -}}
+{{- if $params.files }}
+  {{- $fileList = split (string $params.files) "," -}}
+  {{- $useFiles = true -}}
+{{- end }}
+
+{{- /* EMBEDDED block - includes applies to inner content as well. */ -}}
 {{- if $embedded }}
+  {{- if $useFiles }}
+    {{- range $fileList }}
+      {{- $file := trim . " " -}}
+      {{- $dotParts := split $file "." -}}
+      {{- $ext := (index $dotParts (sub (len $dotParts) 1)) | lower -}}
+      {{- $fileContent := "" -}}
+      {{- $fileErr := false -}}
+      {{- with $ctx.Page.Resources.GetMatch $file }}
+        {{- $fileContent = .Content -}}
+      {{- else }}
+        {{- $fileErr = true -}}
+      {{- end }}
+      {{- if not $fileErr }}
+        {{- if eq $ext "css" }}
+<style type="text/css">
+{{ $fileContent | safeCSS }}
+</style>
+        {{- else if or (eq $ext "js") (eq $ext "ts") }}
+<script type="{{ if eq $ext "ts" }}module{{ else }}text/javascript{{ end }}">
+{{ $fileContent | safeHTML }}
+</script>
+        {{- else if eq $ext "html" }}
+{{ $fileContent | safeHTML }}
+        {{- end }}
+      {{- else }}
+        <div class="van-debug">
+          File not found or unreadable: <code>{{ $file }}</code>
+        </div>
+      {{- end }}
+    {{- end }}
+  {{- else }}
+    {{- $innerContent := $ctx.Inner | default "" -}}
+    {{- if $innerContent }}
+      {{- $embeddedType := $lang | lower -}}
+      {{- if eq $embeddedType "css" }}
+<style type="text/css">
+{{ $innerContent | safeCSS }}
+</style>
+      {{- else if or (eq $embeddedType "js") (eq $embeddedType "typescript") (eq $embeddedType "ts") }}
+<script type="{{ if or (eq $embeddedType "ts") (eq $embeddedType "typescript") }}module{{ else }}text/javascript{{ end }}">
+{{ $innerContent | safeHTML }}
+</script>
+      {{- else }}
+{{ $innerContent | safeHTML }}
+      {{- end }}
+    {{- else }}
+      <div class="van-debug">
+        No file(s) specified and no inner content provided for <code>src-code</code>.
+      </div>
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+<div class="src-code-blocks">
+{{- if $useFiles }}
   {{- range $fileList }}
     {{- $file := trim . " " -}}
     {{- $dotParts := split $file "." -}}
     {{- $ext := (index $dotParts (sub (len $dotParts) 1)) | lower -}}
+    {{- $syntax := "" -}}
+    {{- if $lang }}
+      {{- $syntax = $lang }}
+    {{- else if index $knownExtMap $ext }}
+      {{- $syntax = index $knownExtMap $ext }}
+    {{- end }}
     {{- $fileContent := "" -}}
     {{- $fileErr := false -}}
     {{- with $ctx.Page.Resources.GetMatch $file }}
@@ -49,61 +111,25 @@
       {{- $fileErr = true -}}
     {{- end }}
     {{- if not $fileErr }}
-      {{- if eq $ext "css" }}
-<style type="text/css">
-{{ $fileContent | safeCSS }}
-</style>
-      {{- else if eq $ext "js" }}
-<script type="text/javascript">
-{{ $fileContent | safeJS }}
-</script>
-      {{- else if eq $ext "ts" }}
-<script type="module">
-{{ $fileContent | safeHTML }}
-</script>
-      {{- else if eq $ext "html" }}
-{{ $fileContent | safeHTML }}
-      {{- end }}
+      <div class="src-code-filename">{{ $file }}</div>
+      <div class="src-code-block{{ if $syntax }} lang-{{ $syntax }}{{ end }}"{{ if gt $linesScroll 0 }} style="overflow:auto; max-height:{{ mul $linesScroll 1.4 }}em;"{{ end }}>
+        {{- transform.Highlight $fileContent $syntax $highlightOpts -}}
+      </div>
     {{- else }}
-      <div style="color:red;">
+      <div class="van-debug">
         File not found or unreadable: <code>{{ $file }}</code>
       </div>
     {{- end }}
   {{- end }}
-{{- end }}
-
-<div class="src-code-blocks">
-{{- range $fileList }}
-  {{- $file := trim . " " -}}
-  {{- $dotParts := split $file "." -}}
-  {{- $ext := (index $dotParts (sub (len $dotParts) 1)) | lower -}}
-  {{- $syntax := "" -}}
-  {{- if $lang }}
-    {{- $syntax = $lang }}
-  {{- else if index $knownExtMap $ext }}
-    {{- $syntax = index $knownExtMap $ext }}
-  {{- end }}
-  {{- $fileContent := "" -}}
-  {{- $fileErr := false -}}
-  {{- with $ctx.Page.Resources.GetMatch $file }}
-    {{- $fileContent = .Content -}}
-  {{- else }}
-    {{- $fileErr = true -}}
-  {{- end }}
-  {{- if not $fileErr }}
-    <div class="src-code-filename">{{ $file }}</div>
-    <div class="src-code-block{{ if $syntax }} lang-{{ $syntax }}{{ end }}"{{ if gt $linesScroll 0 }} style="overflow:auto; max-height:{{ mul $linesScroll 1.4 }}em;"{{ end }}>
-      {{- $highlightParams := slice "linenos=table" -}}
-      {{- if $hl }}
-        {{- $expanded := partial "expand_hl_lines.html" $hl -}}
-        {{- $highlightParams = $highlightParams | append (printf "hl_lines=%s" $expanded) -}}
-      {{- end }}
-      {{- $highlightOpts := delimit $highlightParams "," -}}
-      {{- transform.Highlight $fileContent $syntax $highlightOpts }}
+{{- else }}
+  {{- $innerContent := $ctx.Inner | default "" -}}
+  {{- if $innerContent }}
+    <div class="src-code-block{{ if $lang }} lang-{{ $lang }}{{ end }}"{{ if gt $linesScroll 0 }} style="overflow:auto; max-height:{{ mul $linesScroll 1.4 }}em;"{{ end }}>
+      {{- transform.Highlight $innerContent $lang $highlightOpts -}}
     </div>
   {{- else }}
-    <div style="color:red;">
-      File not found or unreadable: <code>{{ $file }}</code>
+    <div class="van-debug">
+      No file(s) specified and no inner content provided for <code>src-code</code>.
     </div>
   {{- end }}
 {{- end }}
