@@ -1,6 +1,8 @@
 {{- $id := .Get "id" | default (printf "van-list-%d" .Ordinal) -}}
 {{- $yaml := .Inner -}}
 {{- $size := .Get "size" | default "large" -}}
+{{- $circle := .Get "circle" | default "false" -}}
+{{- $shadow := .Get "shadow" | default "true" -}}
 {{- $blank := .Get "blank" | default "true" -}}
 <div id="{{ $id }}" class="van-img-list van-img-list-{{$size}}"></div>
 <script type="module">
@@ -10,6 +12,8 @@ try {
   renderImgYtList('{{ $id }}', "{{ $yaml | safeJS }}",
     {
       size: "{{$size}}",
+      circle: "{{$circle}}",
+      shadow: "{{$shadow}}",
       blank: "{{$blank}}"
     }
   );

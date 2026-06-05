@@ -14,7 +14,15 @@ function _createItem(container, item, opt) {
   
   if (item.img) {
     const img = document.createElement('img');
+    const circle = String(item?.circle ?? opt?.circle ?? false) === "true";
+    const shadow = String(item?.shadow ?? opt?.shadow ?? true) === "true";
     img.className = 'van-list-img';
+    if (!shadow) {
+      img.classList.add('van-list-img-no-shadow');
+    }
+    if (circle) {
+      img.classList.add('van-list-img-circle');
+    }
     img.src = item.img;
     if (item.href) {
       const a = document.createElement('a');
