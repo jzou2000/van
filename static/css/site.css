@@ -166,7 +166,6 @@ div.href a {
     margin: auto;
     border: none;
     display: block;
-    box-shadow: 4px 4px 8px grey;
 }
 /*
 :is(.van-list-head-tiny,.van-list-head-micro) img {
@@ -176,8 +175,8 @@ div.href a {
 .van-list-img-circle {
     border-radius: 50%;
 }
-.van-list-img-no-shadow {
-    box-shadow: none;
+.van-list-img-shadow {
+    box-shadow: 4px 4px 8px grey;
 }
 @media (max-width: 768px) {
     .van-list-item {
@@ -191,7 +190,6 @@ div.href a {
         display: grid;
     }
     .van-list-head img {
-        border-radius: 16px;
         width: auto;
     }
     .van-list-head-tiny img {
